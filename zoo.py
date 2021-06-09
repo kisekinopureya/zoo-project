@@ -27,12 +27,12 @@ class Main:
         self._add(Lion, "F", 4, None, None)
         self._add(Hunter,"N", 1, None, None)
 
-        for i in range(TICK_RATE):
+        i = 0
+        while i < TICK_RATE:
             self._tick()
+            i += 1
 
         self._count()
-        if argv == "--debug":
-            print(TICK_RATE)
 
     def _tick(self):
         for species in self.field:
@@ -52,8 +52,8 @@ class Main:
             if hasattr(i, "huntsFor"):
                 for z in self.field:
                     for g in i.huntsFor:
-                        if ((i.x - i.huntRadius) <= z.x <= (i.x + i.huntRadius)) and ((i.y - i.huntRadius) <= z.y <= (i.y + i.huntRadius)):
-                            if z.species == g:
+                        if z.species == g:
+                            if ((i.x - i.huntRadius) <= z.x <= (i.x + i.huntRadius)) and ((i.y - i.huntRadius) <= z.y <= (i.y + i.huntRadius)):
                                 self.field.remove(z)
                                 if argv == "--debug":
                                     print(i.name,"(",i.x,",",i.y,") has eaten", z.name,"(", z.x,",",z.y,")")
@@ -61,18 +61,14 @@ class Main:
     def _reproduction(self):
         for i in self.field:
             for z in self.field:
-                if i.species == z.species:
-                    if i.gender != z.gender:
-                        if idlist.count(id(i)) != 0 or idlist.count(id(z)) != 0: # to prevent infinite reproduction
-                            pass
-                        else:
-                            if ((i.x - 3) <= z.x <= (i.x + 3)) and ((i.y - 3) <= z.y <= (i.y + 3)): 
-                                functocall = getattr(i, "name") #hacky way to call function
-                                if argv == "--debug": 
-                                    print("New ", i.name, "From", "(",i.x, i.y, i.gender, "/", z.x, z.y, z.gender,")" )
-                                self._add(globals()[functocall], random.choice(['F','M']), 1, (i.x + random.choice([1,-1])), (i.y + random.choice([1,-1]))) 
-                                temp = (id(i),id(z))
-                                idlist.extend(temp)
+                if (i.species == z.species and i.gender != z.gender) and (idlist.count(id(i)) == 0 or idlist.count(id(z)) == 0): # to prevent infinite reproduction
+                    if ((i.x - 3) <= z.x <= (i.x + 3)) and ((i.y - 3) <= z.y <= (i.y + 3)):
+                        functocall = getattr(i, "name") #hacky way to call function
+                        if argv == "--debug":
+                            print("New ", i.name, "From", "(",i.x, i.y, i.gender, "/", z.x, z.y, z.gender,")")
+                        self._add(globals()[functocall], random.choice(['F','M']), 1, (i.x + random.choice([1,-1])), (i.y + random.choice([1,-1])))
+                        temp = (id(i),id(z))
+                        idlist.extend(temp)
                     
     def _count(self):
         SheepCount, CowCount, HenCount, RoosterCount, WolfCount, LionCount = 0, 0, 0, 0, 0, 0 
