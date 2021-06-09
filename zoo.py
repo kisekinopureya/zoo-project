@@ -8,6 +8,7 @@ if len(sys.argv) >= 2:
     argv = sys.argv[1]
 else:
     argv = ""
+start_time = time.time()
 idlist = []
 
 class Main:
@@ -91,6 +92,8 @@ class Main:
         print(" Sheep Count:", SheepCount,"\n", "Cow Count:", CowCount,"\n",
                 "Hen Count:", HenCount,"\n", "Rooster Count:", RoosterCount,"\n",
                 "Wolf Count:", WolfCount,"\n", "Lion Count:", LionCount)
+        if argv == "--debug":
+            print(time.time() - start_time)
 
 if __name__ == '__main__':
     Main()
