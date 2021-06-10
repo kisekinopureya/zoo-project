@@ -14,12 +14,13 @@ Amount of Species:
 How Many Units Does Each Species Move:
 - Sheep: 2 Unit
 - Cow: 2 Unit
-- Hen: And Rooster 1 Unit
+- Hen And Rooster: 1 Unit
 - Wolf: 3 Unit
 - Lion: 4 Unit
 - Hunter: 1 Unit
 
 Rules:
+- Species move randomly
 - Species cannot leave the area
 - Wolf hunts Sheep, Hen and Rooster in 4 Unit
 - Lion hunts Sheep and Cow in 5 Unit

@@ -37,7 +37,7 @@ class Main:
     def _tick(self):
         for species in self.field:
             species.tick()
-            self._simulate()
+        self._simulate()
 
     def _add(self, animal, gender, number, x, y):
         for i in range(number):
@@ -58,7 +58,7 @@ class Main:
                             if ((i.x - i.huntRadius) <= z.x <= (i.x + i.huntRadius)) and ((i.y - i.huntRadius) <= z.y <= (i.y + i.huntRadius)):
                                 self.field.remove(z)
                                 if argv == "--debug":
-                                    print(i.name,"(",i.x,",",i.y,") has eaten", z.name,"(", z.x,",",z.y,")")
+                                    print(i.name,"(",i.x,",",i.y,") has hunted", z.name,"(", z.x,",",z.y,")")
 
     def _reproduction(self):
         for i in self.field:
