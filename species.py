@@ -20,23 +20,15 @@ class Chars:
     
     def tick(self):
         #Based on their movement unit, randomly move unit and check if it exceeds the field
-        if random.choice([True,False]) == True:
-            self.x += self.movement
-            if self.x > 500:
-                self.x -= self.movement
-        else:
-            self.x -= self.movement
-            if self.x < 0:
-                self.x += self.movement
+        tempx = random.choice([self.movement, -self.movement])
+        self.x += tempx
+        if self.x > 500 or self.x < 0:
+            self.x += 2 * -tempx
 
-        if random.choice([True,False]) == True:
-            self.y += self.movement
-            if self.y > 500:
-                self.y -= self.movement
-        else:
-            self.y -= self.movement
-            if self.y < 0:
-                self.y += self.movement
+        tempy = random.choice([self.movement, -self.movement])
+        self.y += tempy
+        if self.y > 500 or self.x < 0:
+            self.y += 2 * -tempy
             
 class Sheep(Chars, object):
     def __init__(self, gender, x, y):
