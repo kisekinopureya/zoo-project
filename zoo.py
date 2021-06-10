@@ -44,6 +44,8 @@ class Main:
             self.field += [animal(gender, x, y)]
 
     def _simulate(self):
+        if TICK_RATE % 3 == 0:
+            idlist.clear()
         self._hunting()
         self._reproduction()
 
